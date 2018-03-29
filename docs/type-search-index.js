@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"com.shawnclake.part1","l":"Interpreter"},{"p":"com.shawnclake.part2","l":"Interpreter"},{"p":"com.shawnclake","l":"Main"},{"p":"com.shawnclake.part1","l":"Token"},{"p":"com.shawnclake.part2","l":"Token"}]

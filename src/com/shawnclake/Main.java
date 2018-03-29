@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String args[])
     {
-        part1();
+        part2();
     }
 
     public static void part1()
@@ -21,7 +21,14 @@ public class Main {
 
     public static void part2()
     {
+        String input = Input.readLine();
 
+        com.shawnclake.part2.Interpreter interpreter = new com.shawnclake.part2.Interpreter(input);
+        try {
+            Output.pln(""+interpreter.expr());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void part3()
