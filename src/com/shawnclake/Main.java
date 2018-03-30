@@ -58,7 +58,14 @@ public class Main {
 
     public static void part5()
     {
-
+        String input = Input.readLine();
+        com.shawnclake.part5.Lexer lexer = new com.shawnclake.part5.Lexer(input);
+        com.shawnclake.part5.Interpreter interpreter = new com.shawnclake.part5.Interpreter(lexer);
+        try {
+            Output.pln(""+interpreter.expr());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void part6()
