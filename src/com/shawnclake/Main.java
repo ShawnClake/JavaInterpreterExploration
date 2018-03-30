@@ -1,5 +1,6 @@
 package com.shawnclake;
 
+import com.shawnclake.morgencore.core.component.filesystem.FileRead;
 import com.shawnclake.morgencore.core.component.terminal.Input;
 import com.shawnclake.morgencore.core.component.terminal.Output;
 import com.shawnclake.part1.Interpreter;
@@ -9,7 +10,7 @@ public class Main {
 
     public static void main(String args[])
     {
-        part8();
+        part9();
     }
 
     public static void part1()
@@ -108,7 +109,28 @@ public class Main {
 
     public static void part9()
     {
+        String input = Input.readLine();
 
+        FileRead fileRead = new FileRead("D:\\Programming\\Projects\\JavaInterpreterExploration\\src\\com\\shawnclake\\part9/assignment.txt");
+
+        String fInput = "";
+        for(String line : fileRead.getEntireFile())
+        {
+            fInput += line;
+        }
+
+        Output.pln(fInput);
+
+        com.shawnclake.part9.Lexer lexer = new com.shawnclake.part9.Lexer(fInput);
+        com.shawnclake.part9.Parser parser = new com.shawnclake.part9.Parser(lexer);
+        com.shawnclake.part9.Interpreter interpreter = new com.shawnclake.part9.Interpreter(parser);
+        try {
+            interpreter.interpret();
+            Output.pln(interpreter.getGLOBAL_SCOPE().toString());
+            //Output.pln(""+interpreter.interpret());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void part10()
