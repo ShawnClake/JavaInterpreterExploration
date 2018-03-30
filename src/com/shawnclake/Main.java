@@ -70,7 +70,14 @@ public class Main {
 
     public static void part6()
     {
-
+        String input = Input.readLine();
+        com.shawnclake.part6.Lexer lexer = new com.shawnclake.part6.Lexer(input);
+        com.shawnclake.part6.Interpreter interpreter = new com.shawnclake.part6.Interpreter(lexer);
+        try {
+            Output.pln(""+interpreter.expr());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void part7()
