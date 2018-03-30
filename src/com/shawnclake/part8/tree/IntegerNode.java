@@ -1,6 +1,6 @@
-package com.shawnclake.part7.tree;
+package com.shawnclake.part8.tree;
 
-import com.shawnclake.part7.Token;
+import com.shawnclake.part8.Token;
 
 public class IntegerNode extends BinaryOperatorNode {
 

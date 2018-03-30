@@ -1,4 +1,4 @@
-package com.shawnclake.part7.tree;
+package com.shawnclake.part8.tree;
 
 abstract public class Node {
     private Node left;

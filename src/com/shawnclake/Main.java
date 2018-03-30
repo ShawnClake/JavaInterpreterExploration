@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String args[])
     {
-        part7();
+        part8();
     }
 
     public static void part1()
@@ -95,7 +95,15 @@ public class Main {
 
     public static void part8()
     {
-
+        String input = Input.readLine();
+        com.shawnclake.part8.Lexer lexer = new com.shawnclake.part8.Lexer(input);
+        com.shawnclake.part8.Parser parser = new com.shawnclake.part8.Parser(lexer);
+        com.shawnclake.part8.Interpreter interpreter = new com.shawnclake.part8.Interpreter(parser);
+        try {
+            Output.pln(""+interpreter.interpret());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void part9()
