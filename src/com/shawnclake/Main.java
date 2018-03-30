@@ -3,12 +3,13 @@ package com.shawnclake;
 import com.shawnclake.morgencore.core.component.terminal.Input;
 import com.shawnclake.morgencore.core.component.terminal.Output;
 import com.shawnclake.part1.Interpreter;
+import com.shawnclake.part4.Lexer;
 
 public class Main {
 
     public static void main(String args[])
     {
-        part3();
+        part6();
     }
 
     public static void part1()
@@ -45,7 +46,14 @@ public class Main {
 
     public static void part4()
     {
-
+        String input = Input.readLine();
+        Lexer lexer = new Lexer(input);
+        com.shawnclake.part4.Interpreter interpreter = new com.shawnclake.part4.Interpreter(lexer);
+        try {
+            Output.pln(""+interpreter.expr());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void part5()
