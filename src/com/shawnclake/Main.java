@@ -15,7 +15,7 @@ public class Main {
     public static void main(String args[])
     {
         try {
-            part11();
+            part12();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -210,12 +210,56 @@ public class Main {
 
     }
 
-    public static void part12()
+    public static void part12() throws Exception
+    {
+        String input = Input.readLine();
+
+        FileRead fileRead = new FileRead("D:\\Programming\\Projects\\JavaInterpreterExploration\\src\\com\\shawnclake\\part12/assignment.txt");
+
+        String fInput = "";
+        for(String line : fileRead.getEntireFile())
+        {
+            fInput += line;
+        }
+
+        Output.pln(fInput);
+
+        com.shawnclake.part12.Lexer lexer = new com.shawnclake.part12.Lexer(fInput);
+        com.shawnclake.part12.Parser parser = new com.shawnclake.part12.Parser(lexer);
+
+        com.shawnclake.part12.tree.AbstractSyntaxTree abstractSyntaxTree = parser.parse();
+
+        com.shawnclake.part12.symbols.SymbolTableBuilder symbolTableBuilder = new com.shawnclake.part12.symbols.SymbolTableBuilder();
+        symbolTableBuilder.build(abstractSyntaxTree);
+
+        Output.pln("");
+        Output.pln("Symbol Table:");
+        Output.pln(symbolTableBuilder.getSymbolTable().toString());
+
+
+        com.shawnclake.part12.Interpreter interpreter = new com.shawnclake.part12.Interpreter(abstractSyntaxTree);
+
+        interpreter.interpret();
+        for(Map.Entry<String, DynamicPrimitive> entry : interpreter.getGLOBAL_MEMORY().entrySet())
+        {
+            Output.pln(entry.getKey().toString() + ": " + entry.getValue().getString());
+        }
+        Output.pln(interpreter.getGLOBAL_MEMORY().toString());
+        //Output.pln(""+interpreter.interpret());
+
+    }
+
+    public static void part13() throws Exception
     {
 
     }
 
-    public static void part13()
+    public static void part14() throws Exception
+    {
+
+    }
+
+    public static void part15() throws Exception
     {
 
     }
