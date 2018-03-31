@@ -15,7 +15,7 @@ public class Main {
     public static void main(String args[])
     {
         try {
-            part12();
+            part13();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -251,7 +251,40 @@ public class Main {
 
     public static void part13() throws Exception
     {
+        String input = Input.readLine();
 
+        FileRead fileRead = new FileRead("D:\\Programming\\Projects\\JavaInterpreterExploration\\src\\com\\shawnclake\\part13/assignment.txt");
+
+        String fInput = "";
+        for(String line : fileRead.getEntireFile())
+        {
+            fInput += line;
+        }
+
+        Output.pln(fInput);
+
+        com.shawnclake.part13.Lexer lexer = new com.shawnclake.part13.Lexer(fInput);
+        com.shawnclake.part13.Parser parser = new com.shawnclake.part13.Parser(lexer);
+
+        com.shawnclake.part13.tree.AbstractSyntaxTree abstractSyntaxTree = parser.parse();
+
+        com.shawnclake.part13.symbols.SymbolTableBuilder symbolTableBuilder = new com.shawnclake.part13.symbols.SymbolTableBuilder();
+        symbolTableBuilder.build(abstractSyntaxTree);
+
+        Output.pln("");
+        Output.pln("Symbol Table:");
+        Output.pln(symbolTableBuilder.getSymbolTable().toString());
+
+
+        com.shawnclake.part13.Interpreter interpreter = new com.shawnclake.part13.Interpreter(abstractSyntaxTree);
+
+        interpreter.interpret();
+        for(Map.Entry<String, DynamicPrimitive> entry : interpreter.getGLOBAL_MEMORY().entrySet())
+        {
+            Output.pln(entry.getKey().toString() + ": " + entry.getValue().getString());
+        }
+        Output.pln(interpreter.getGLOBAL_MEMORY().toString());
+        //Output.pln(""+interpreter.interpret());
     }
 
     public static void part14() throws Exception
