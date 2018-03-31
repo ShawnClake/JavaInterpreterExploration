@@ -5,6 +5,7 @@ import com.shawnclake.morgencore.core.component.filesystem.FileRead;
 import com.shawnclake.morgencore.core.component.terminal.Input;
 import com.shawnclake.morgencore.core.component.terminal.Output;
 import com.shawnclake.part1.Interpreter;
+import com.shawnclake.part11.symbols.SymbolTableBuilder;
 import com.shawnclake.part4.Lexer;
 
 import java.util.Map;
@@ -13,7 +14,11 @@ public class Main {
 
     public static void main(String args[])
     {
-        part10();
+        try {
+            part11();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void part1()
@@ -166,8 +171,42 @@ public class Main {
         }
     }
 
-    public static void part11()
+    public static void part11() throws Exception
     {
+        String input = Input.readLine();
+
+        FileRead fileRead = new FileRead("D:\\Programming\\Projects\\JavaInterpreterExploration\\src\\com\\shawnclake\\part11/assignment.txt");
+
+        String fInput = "";
+        for(String line : fileRead.getEntireFile())
+        {
+            fInput += line;
+        }
+
+        Output.pln(fInput);
+
+        com.shawnclake.part11.Lexer lexer = new com.shawnclake.part11.Lexer(fInput);
+        com.shawnclake.part11.Parser parser = new com.shawnclake.part11.Parser(lexer);
+
+        com.shawnclake.part11.tree.AbstractSyntaxTree abstractSyntaxTree = parser.parse();
+
+        com.shawnclake.part11.symbols.SymbolTableBuilder symbolTableBuilder = new SymbolTableBuilder();
+        symbolTableBuilder.build(abstractSyntaxTree);
+
+        Output.pln("");
+        Output.pln("Symbol Table:");
+        Output.pln(symbolTableBuilder.getSymbolTable().toString());
+
+
+        com.shawnclake.part11.Interpreter interpreter = new com.shawnclake.part11.Interpreter(abstractSyntaxTree);
+
+        interpreter.interpret();
+        for(Map.Entry<String, DynamicPrimitive> entry : interpreter.getGLOBAL_MEMORY().entrySet())
+        {
+            Output.pln(entry.getKey().toString() + ": " + entry.getValue().getString());
+        }
+        Output.pln(interpreter.getGLOBAL_MEMORY().toString());
+        //Output.pln(""+interpreter.interpret());
 
     }
 
