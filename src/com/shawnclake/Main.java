@@ -1,16 +1,19 @@
 package com.shawnclake;
 
+import com.shawnclake.morgencore.core.component.DynamicPrimitive;
 import com.shawnclake.morgencore.core.component.filesystem.FileRead;
 import com.shawnclake.morgencore.core.component.terminal.Input;
 import com.shawnclake.morgencore.core.component.terminal.Output;
 import com.shawnclake.part1.Interpreter;
 import com.shawnclake.part4.Lexer;
 
+import java.util.Map;
+
 public class Main {
 
     public static void main(String args[])
     {
-        part9();
+        part10();
     }
 
     public static void part1()
@@ -134,6 +137,46 @@ public class Main {
     }
 
     public static void part10()
+    {
+        String input = Input.readLine();
+
+        FileRead fileRead = new FileRead("D:\\Programming\\Projects\\JavaInterpreterExploration\\src\\com\\shawnclake\\part10/assignment.txt");
+
+        String fInput = "";
+        for(String line : fileRead.getEntireFile())
+        {
+            fInput += line;
+        }
+
+        Output.pln(fInput);
+
+        com.shawnclake.part10.Lexer lexer = new com.shawnclake.part10.Lexer(fInput);
+        com.shawnclake.part10.Parser parser = new com.shawnclake.part10.Parser(lexer);
+        com.shawnclake.part10.Interpreter interpreter = new com.shawnclake.part10.Interpreter(parser);
+        try {
+            interpreter.interpret();
+            for(Map.Entry<String, DynamicPrimitive> entry : interpreter.getGLOBAL_SCOPE().entrySet())
+            {
+                Output.pln(entry.getKey().toString() + ": " + entry.getValue().getString());
+            }
+            Output.pln(interpreter.getGLOBAL_SCOPE().toString());
+            //Output.pln(""+interpreter.interpret());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void part11()
+    {
+
+    }
+
+    public static void part12()
+    {
+
+    }
+
+    public static void part13()
     {
 
     }
